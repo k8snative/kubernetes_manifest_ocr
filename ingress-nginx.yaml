@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+
+kind: Ingress
+
+metadata:
+
+  name: ingress-app
+
+  annotations:
+
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://ocr-client.eradllc.com"
+
+spec:
+
+  rules:
+
+    - host: ocr-api.eradllc.com
+
+      http:
+
+        paths:
+
+          - path: /
+
+            pathType: Prefix
+
+            backend:
+
+              service:
+
+                name: api
+
+                port:
+
+                  number: 2000
+      
+    - host: ocr-client.eradllc.com
+
+      http:
+
+        paths:
+
+          - path: /
+
+            pathType: Prefix
+
+            backend:
+
+              service:
+
+                name: client
+
+                port:
+
+                  number: 80
